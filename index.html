@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        *{
+            margin: 0;
+        }
+        h1{
+            text-align: center;
+            color: azure;
+        }
+        #header{
+            top: 0;
+            height: 40px;
+            width: 100%;
+            background-color: orange;
+        }
+        #center{
+           width: 100%;
+           max-width: var(--game-max-width);
+           margin: 0 auto;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           flex-direction: column;
+           gap: 40px;
+        }
+        button{
+            min-width: 60px;
+            min-height: 45px;
+            margin-top: 10px;
+            margin-left: 10px;
+
+        }
+     
+        #form {
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+        }
+       
+       
+        .div1 { grid-area: 1 / 1 / 2 / 6; display: flex; flex-direction: row; }
+        .div2 { grid-area: 2 / 1 / 3 / 6; display: flex; flex-direction: row; }
+        .div3 { grid-area: 3 / 1 / 4 / 6; display: flex; flex-direction: row; }
+        .div4 { grid-area: 4 / 1 / 5 / 6; display: flex; flex-direction: row; }
+        .div5 { grid-area: 5 / 1 / 6 / 6; display: flex; flex-direction: row; }
+        .div6 { grid-area: 6 / 1 / 7 / 6; display: flex; flex-direction: row; }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+<div id="header"><h1> Γουoρντλε</h1></div>
+<div id="center">
+    <div id="form">
+        <div class="div1"> </div>
+        <div class="div2"> </div>
+        <div class="div3"> </div>
+        <div class="div4"> </div>
+        <div class="div5"> </div>
+        <div class="div6"> </div>
+    </div>
+    <div class="Keyboard-module_keyboard__uYuqf" role="group" aria-label="Keyboard" style="display: block;">
+    <div class="Keyboard-module_row__ilOKU">
+        <button type="button" data-key="e" id="Ε" value="Ε" aria-label="add e" aria-disabled="false" class="Key-module_key__kchQI">Ε</button>
+        <button type="button" data-key="r" id="Ρ" value="Ρ" aria-label="add r" aria-disabled="false" class="Key-module_key__kchQI">Ρ</button>
+        <button type="button" data-key="t" id="Τ" value="Τ" aria-label="add t" aria-disabled="false" class="Key-module_key__kchQI">Τ</button>
+        <button type="button" data-key="y" id="Υ" value="Υ" aria-label="add y" aria-disabled="false" class="Key-module_key__kchQI">Υ</button>
+        <button type="button" data-key="u" id="Θ" value="Θ" aria-label="add u" aria-disabled="false" class="Key-module_key__kchQI">Θ</button>
+        <button type="button" data-key="i" id="Ι" value="Ι" aria-label="add i" aria-disabled="false" class="Key-module_key__kchQI">Ι</button>
+        <button type="button" data-key="o" id="Ο" value="Ο" aria-label="add o" aria-disabled="false" class="Key-module_key__kchQI">Ο</button>
+        <button type="button" data-key="p" id="Π" value="Π" aria-label="add p" aria-disabled="false" class="Key-module_key__kchQI">Π</button>
+    </div>
+    <div class="Keyboard-module_row__ilOKU">
+        <div data-testid="spacer" class="Key-module_half__HooWu"></div>
+        <button type="button" data-key="a" id="Α" value="Α" aria-label="add a" aria-disabled="false" class="Key-module_key__kchQI">Α</button>
+        <button type="button" data-key="s" id="Σ" value="Σ" aria-label="add s" aria-disabled="false" class="Key-module_key__kchQI">Σ</button>
+        <button type="button" data-key="d" id="Δ" value="Δ" aria-label="add d" aria-disabled="false" class="Key-module_key__kchQI">Δ</button>
+        <button type="button" data-key="f" id="Φ" value="Φ" aria-label="add f" aria-disabled="false" class="Key-module_key__kchQI">Φ</button>
+        <button type="button" data-key="g" id="Γ" value="Γ" aria-label="add g" aria-disabled="false" class="Key-module_key__kchQI">Γ</button>
+        <button type="button" data-key="h" id="Η" value="Η" aria-label="add h" aria-disabled="false" class="Key-module_key__kchQI">Η</button>
+        <button type="button" data-key="j" id="Ξ" value="Ξ" aria-label="add j" aria-disabled="false" class="Key-module_key__kchQI">Ξ</button>
+        <button type="button" data-key="k" id="Κ" value="Κ" aria-label="add k" aria-disabled="false" class="Key-module_key__kchQI">Κ</button>
+        <button type="button" data-key="l" id="Λ" value="Λ" aria-label="add l" aria-disabled="false" class="Key-module_key__kchQI">Λ</button>
+        <div data-testid="spacer" class="Key-module_half__HooWu"></div></div><div class="Keyboard-module_row__ilOKU">
+            <button type="button" data-key="↵" id="↵" value="Enter" aria-label="enter" aria-disabled="true" class="Key-module_key__kchQI Key-module_oneAndAHalf__bq8Tw">enter</button>
+            <button type="button" data-key="z" id="Ζ" value="Ζ" aria-label="add z" aria-disabled="false" class="Key-module_key__kchQI">Ζ</button>
+            <button type="button" data-key="x" id="Χ" value="Χ" aria-label="add x" aria-disabled="false" class="Key-module_key__kchQI">Χ</button>
+            <button type="button" data-key="c" id="Ψ" value="Ψ" aria-label="add c" aria-disabled="false" class="Key-module_key__kchQI">Ψ</button>
+            <button type="button" data-key="v" id="Ω" value="Ω" aria-label="add v" aria-disabled="false" class="Key-module_key__kchQI">Ω</button>
+            <button type="button" data-key="b" id="Β" value="Β" aria-label="add b" aria-disabled="false" class="Key-module_key__kchQI">Β</button>
+            <button type="button" data-key="n" id="Ν" value="Ν" aria-label="add n" aria-disabled="false" class="Key-module_key__kchQI">Ν</button>
+            <button type="button" data-key="m" id="Μ" value="Μ" aria-label="add m" aria-disabled="false" class="Key-module_key__kchQI">Μ</button>
+            <button type="button" data-key="←" id="←" value="Backspace" aria-label="backspace" aria-disabled="true" class="bs Key-module_key__kchQI Key-module_oneAndAHalf__bq8Tw">bs</button>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
