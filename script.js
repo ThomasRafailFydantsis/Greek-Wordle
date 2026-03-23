@@ -24,12 +24,14 @@ for (let i = 0; i < arrOfSquaresChar.length; i++) {
 let x = 1;
 let whichBox = 0;
 let whichRow = 0;
+let keyboardColors = {}; // tracks best color per key: 0=green, 1=orange, 2=grey
 
 terain.forEach((square) => {
   let currentDiv = document.getElementsByClassName(`div${x}`);
   let htmlElement = document.createElement("div");
   htmlElement.id = square[0] + square[1];
-  htmlElement.style.border = "2px solid black";
+  htmlElement.className = "wordBoxes"
+  htmlElement.style.border = "2px solid #4a4a6a";
   htmlElement.style.width = "50px";
   htmlElement.style.height = "50px";
   htmlElement.style.margin = "5px";
@@ -56,14 +58,13 @@ function enter (){
   if ( word.length == 5) {
     let isValidWord = isGuessingWordValid(word);
     if (!isValidWord) {
-      console.log("Not a valid word");
       return;
     }
     validateWord(word);
   }
 }
 function letter(input){
-
+  let letterGiven = input.toString().toUpperCase();
   if (input == "Backspace") {
     if (word.length == 0) return;
     let wordInArray = word.split("");
@@ -75,177 +76,129 @@ function letter(input){
     );
     box.innerHTML = ``;
   } else if (
-    input == "Α" ||
-    input == "Β" ||
-    input == "Γ" ||
-    input == "Δ" ||
-    input == "Ε" ||
-    input == "Ζ" ||
-    input == "Η" ||
-    input == "Θ" ||
-    input == "Ι" ||
-    input == "Κ" ||
-    input == "Λ" ||
-    input == "Μ" ||
-    input == "Ν" ||
-    input == "Ξ" ||
-    input == "Ο" ||
-    input == "Π" ||
-    input == "Ρ" ||
-    input == "Σ" ||
-    input == "Τ" ||
-    input == "Υ" ||
-    input == "Φ" ||
-    input == "Χ" ||
-    input == "Ψ" ||
-    input == "Ω" 
+    letterGiven == "Α" ||
+    letterGiven == "Β" ||
+    letterGiven == "Γ" ||
+    letterGiven == "Δ" ||
+    letterGiven == "Ε" ||
+    letterGiven == "Ζ" ||
+    letterGiven == "Η" ||
+    letterGiven == "Θ" ||
+    letterGiven == "Ι" ||
+    letterGiven == "Κ" ||
+    letterGiven == "Λ" ||
+    letterGiven == "Μ" ||
+    letterGiven == "Ν" ||
+    letterGiven == "Ξ" ||
+    letterGiven == "Ο" ||
+    letterGiven == "Π" ||
+    letterGiven == "Ρ" ||
+    letterGiven == "Σ" ||
+    letterGiven == "Τ" ||
+    letterGiven == "Υ" ||
+    letterGiven == "Φ" ||
+    letterGiven == "Χ" ||
+    letterGiven == "Ψ" ||
+    letterGiven == "Ω" 
   ) {
     if (word.length == 5) return;
-    word += input;
-
+    word += input.toUpperCase();
     let box = document.getElementById(
       `${arrOfSquaresNum[whichBox]}${arrOfSquaresChar[whichRow]}`
     );
-    box.innerHTML = `<p style = "font-size: 45px; text-align: center;">${input}</p>`;
+    box.innerHTML = `<p style = "font-size: 40px; color: white; text-align: center;">${input.toUpperCase()}</p>`;
     whichBox++;
   }else if(input=="Enter"){
     enter ();
   }
-  console.log(word);
 };
 
 
 function validateWord(wordToValidate) {
-  let greenWords = [];
-  let nonGreenLetters = [];
-  let orangeLetters = [];
-  let greyLetters = [];
-  let wordToGuessAfterGreen = wordToGuess
-  for(let i = 0;i<5;i++){
-    if(wordToValidate[i]==wordToGuessAfterGreen[i]){
-      greenWords.push([wordToValidate[i],i,0])
-      
-      let x = wordToGuessAfterGreen.split("")
-      x[i] = "-"
-      wordToGuessAfterGreen = x.join("")
-    }else{
-      nonGreenLetters.push([wordToValidate[i],i])
+  let result = new Array(5).fill(2);
+  let targetAvailable = wordToGuess.split("");
+
+  for (let i = 0; i < 5; i++) {
+    if (wordToValidate[i] === targetAvailable[i]) {
+      result[i] = 0;
+      targetAvailable[i] = null; 
     }
   }
-  
-  for(let i = 0; i<nonGreenLetters.length;i++){
-    for(let j = 0;j<wordToGuessAfterGreen.length;j++){
-      if(nonGreenLetters[i][0]==wordToGuessAfterGreen[j]){
-        nonGreenLetters[i][2]=1
-        orangeLetters.push(nonGreenLetters[i])
+
+
+  for (let i = 0; i < 5; i++) {
+    if (result[i] === 0) continue; 
+    for (let j = 0; j < 5; j++) {
+      if (targetAvailable[j] !== null && wordToValidate[i] === targetAvailable[j]) {
+        result[i] = 1;
+        targetAvailable[j] = null; 
         break;
-      }else{
-        nonGreenLetters[i][2]=2
-        greyLetters.push(nonGreenLetters[i])
       }
-    }
-  }
-  console.log('this is orange'+ orangeLetters)
-  for(let i = 0 ;i<greyLetters.length;i++){
-    for(let j = i+1;j<orangeLetters.length;j++){
-      if(greyLetters[i][0]==orangeLetters[j][0] && greyLetters[i][1]==orangeLetters[j][1]){
-        greyLetters.splice(i,1);
-      }
-    }
-  }
-  let originalDuplicates=[];
-  for (let i = 0; i < wordToGuess.length; i++) {
-    let count=0;
-    for(let j = 0; j < wordToGuess.length; j++) {
-      if(wordToGuess[i]==wordToGuess[j]){
-        count++
-      }
-    }
-    originalDuplicates.push([wordToGuess[i],count])
-  }
-  let orangeDuplicates=[];
-  for (let i = 0; i < nonGreenLetters.length; i++) {
-    let count=0;
-    for(let j = 0; j < nonGreenLetters.length; j++) {
-      if(nonGreenLetters[i][0]==nonGreenLetters[j][0]){
-        count++
-      }
-    }
-    orangeDuplicates.push([nonGreenLetters[i][0],count])
-  }
-  if(orangeDuplicates.length>0){
-    for(let i=0;i<originalDuplicates.length;i++){
-      for(let j = 0; j<orangeDuplicates.length;j++){
-        if(originalDuplicates[i][0]==orangeDuplicates[j][0] && 
-          originalDuplicates[i][1]<orangeDuplicates[j][1]
-        ){
-          orangeDuplicates[j]=originalDuplicates[i]
-          orangeDuplicates.splice(j+1,1)
-          break;
-        }
-      }
-    }
-  }
-  
-  let orDup = orangeDuplicates.map(JSON.stringify).filter((e,i,a) => i === a.indexOf(e)).map(JSON.parse)
-  let finalOrangeLetters = [];
-  for(let i = 0;i<orDup.length;i++){
-    let ordArray = [];
-    for(let j = 0;j<orangeLetters.length;j++){
-      if(orangeLetters[j][0]==orDup[i][0]){
-        ordArray.push(orangeLetters[j])
-      }
-    }
-    if(ordArray.length>orDup[i][1]){
-      while(ordArray.length>orDup[i][1]){
-        ordArray[ordArray.length -1][2]=2
-        greyLetters.push(ordArray[ordArray.length -1])
-        ordArray.pop();
-      }
-      finalOrangeLetters=[...finalOrangeLetters,...ordArray];
     }
   }
 
-  if(finalOrangeLetters.length>0){
-    for(let i = 0; i < orangeLetters.length; i++) {
-      for (let j = 0; j < finalOrangeLetters.length; j++) {
-        if(orangeLetters[i][0]!=finalOrangeLetters[j][0] ){
-          finalOrangeLetters.push(orangeLetters[i]);
-        }
-      }
-    }
-  }else{
-    finalOrangeLetters = orangeLetters;
-  }
+  for (let i = 0; i < 5; i++) {
+    let box = document.getElementById(`${arrOfSquaresNum[i]}${arrOfSquaresChar[whichRow]}`);
+    let letter = wordToValidate[i];
+    let colorCode = result[i];
+    let color = colorCode === 0 ? "#4caf50" : colorCode === 1 ? "#e8a020" : "#353535";
 
-  let finalColorLetters = [...greyLetters,...finalOrangeLetters,...greenWords];
-
-  for (let i = 0; i < finalColorLetters.length; i++) {
-    let box = document.getElementById(`${arrOfSquaresNum[finalColorLetters[i][1]]}${arrOfSquaresChar[whichRow]}`);
     setTimeout(() => {
-      if(finalColorLetters[i].length==3 ){
-        if(finalColorLetters[i][2]==0){
-          box.style.backgroundColor = "green";
-          document.getElementById(`${finalColorLetters[i][0]}`).style.backgroundColor = "green";
-        }else if(finalColorLetters[i][2]==1){
-          box.style.backgroundColor = "orange";
-          document.getElementById(`${finalColorLetters[i][0]}`).style.backgroundColor = "orange";
-        }else if(finalColorLetters[i][2]==2){
-          box.style.backgroundColor = "silver";
-          document.getElementById(`${finalColorLetters[i][0]}`).style.backgroundColor = "grey";
-        }
+      box.style.backgroundColor = color;
+      box.style.borderColor = color;
+      let prev = keyboardColors[letter];
+      if (prev === undefined || colorCode < prev) {
+        keyboardColors[letter] = colorCode;
+        let keyEl = document.getElementById(letter);
+        if (keyEl) keyEl.style.backgroundColor = color;
       }
-    }, 20+i*20);
+    }, 200 + i * 20);
   }
 
-  if ( wordToGuessAfterGreen == "-----") { //ΤΟ ΟΠΟΙΟ ΣΗΜΑΙΝΕΙ ΟΤΙ ΕΙΝΑΙ ΟΛΑ ΠΡΑΣΙΝΑ
-    console.log("gg");
+  let won = result.every(r => r === 0);
+  let animDelay = 20 + 5 * 20 + 300;
+
+  if (won) {
+    setTimeout(() => showModal(true, whichRow + 1), animDelay);
   } else {
-    console.log("not gg");
     whichRow++;
     whichBox = 0;
     word = "";
+    if (whichRow >= arrOfSquaresChar.length) {
+      setTimeout(() => showModal(false, 0), animDelay);
+    }
   }
+}
+
+function showModal(won, attempts) {
+  document.getElementById("modal-title").textContent = won
+    ? `Μπράβο! Το βρήκες σε ${attempts} ${attempts === 1 ? "προσπάθεια" : "προσπάθειες"}!`
+    : "Έχασες!";
+  document.getElementById("modal-word").textContent = won
+    ? ""
+    : `Η λέξη ήταν: ${wordToGuess}`;
+  document.getElementById("game-modal").style.display = "flex";
+}
+
+function restartGame() {
+  document.getElementById("game-modal").style.display = "none";
+  whichRow = 0;
+  whichBox = 0;
+  word = "";
+  terain.forEach((square) => {
+    let box = document.getElementById(`${square[0]}${square[1]}`);
+    if (box) {
+      box.innerHTML = "";
+      box.style.backgroundColor = "";
+      box.style.borderColor = "#4a4a6a";
+    }
+  });
+  document.querySelectorAll(".Key-module_key__kchQI").forEach(btn => {
+    btn.style.backgroundColor = "";
+  });
+  keyboardColors = {};
+  wordToGuess = realWordsArray[Math.floor(Math.random() * realWordsArray.length)];
+  console.log("Word to guess: " + wordToGuess);
 }
 
 function getRealWordsArray(result){
@@ -268,7 +221,13 @@ function isGuessingWordValid(word) {
   return realWordsArray.includes(word);
 }
 
+function closeRulesModal() {
+  document.getElementById("rules-modal").style.display = "none";
+}
+
 document.addEventListener("click",function(e){
   let x = e.target.value;
+  if (x === undefined || x === "") return;
   letter(x)
 })
+
